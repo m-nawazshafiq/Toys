@@ -35,7 +35,6 @@ if (!isset($_SESSION['email'])) {
                         <li><a href="<?php echo base_url() . "User/logout"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Logout</a></li>
                     </ul>
                 </div>
-
             </div>
             <div class="col-lg-9">
 
