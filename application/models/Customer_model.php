@@ -10,13 +10,17 @@ class Customer_model extends CI_Model{
         $this->db->insert('customer',$user);
         $id=$this->db->insert_id();
         
-        $data = array(
+        /*$data = array(
             'sessionid' => session_id(),
             'userid' => $id,
             'userName' => $user['username'],
             'email' => $user['EmailAddress'],
             'password'=>$user['Password'],
             'contact' =>  $user['contact']
+        );*/
+
+        $data = array(
+            'email' => $user['EmailAddress']
         );
 
         $this->session->set_userdata($data);
@@ -41,18 +45,10 @@ class Customer_model extends CI_Model{
         if ($query->num_rows() == 1) {
             
             $row = $query->row_array();
-            $data = array(
-                'sessionid' => session_id(),
-                'userid' => $row['Id'],
-                'userName' => $row['UserName'],
-                'email' => $row['EmailAddress'],
-                'password'=>$row['Password'],
-                'contact' =>  $row['contact']
-            );
-            $this->session->set_userdata($data);
+            
+            $this->session->set_userdata('email', $row['EmailAddress']);
 
             if($remmemberMe == 'on'){
-                $this->load->helper('cookie');
                 $cookie = array(
                     'name'   => 'remember_me',
                     'value'  => $email,                           
@@ -63,8 +59,7 @@ class Customer_model extends CI_Model{
             return true;
         }
         else {
-            $unsetArr = array('sessionid','userid', 'userName', 'email', 'password', 'contact', 'address', 'validated');
-            $this->session->unset_userdata($unsetArr);
+            $this->session->unset_userdata('email');
             return false;
         }
     }
@@ -102,6 +97,13 @@ class Customer_model extends CI_Model{
     {
         $this->db->where("Id", $id);
         return $this->db->get("customer")->result_array();
+    }
+
+    public function getId($email){
+        $this->db->select('Id');
+        $this->db->where('EmailAddress',$email);
+        $query=$this->db->get("customer");
+        return $query->row()->Id;
     }
 
     public function update($id, $formData)

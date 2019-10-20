@@ -52,7 +52,7 @@
                             <label class="alert alert-danger error-msg"><?php echo $_SESSION['fail'];?></label>
                         <?php }?>
 
-                        <input type="email" placeholder="Enter Your Email Address" value="<?php if(!isset($_SESSION['email'])) {echo set_value('email');} else{ echo $_SESSION['dbError'];}?>" class="form-control" name="email" id="">
+                        <input type="email" placeholder="Enter Your Email Address" value="<?php if(!isset($_SESSION['fail'])) {echo set_value('email');} else{ echo $_SESSION['dbError'];}?>" class="form-control" name="email" id="">
                         
                         <label>Password</label>
                         <?php if(form_error('pass')){ ?>

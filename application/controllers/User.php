@@ -46,7 +46,7 @@ class User extends CI_Controller
             if (!$this->Customer_model->addCustomer($user)) {
                 print_r("No");
             } else {
-                redirect(base_url() . 'User/profile/' . $this->session->userid);
+                redirect(base_url() . 'User/profile');
             }
         }
     }
@@ -60,7 +60,7 @@ class User extends CI_Controller
         $data['category_list'] = $this->Category_model->GetCategories();
 
         $this->load->model('Customer_model');
-        $this->load->library('form_validation');
+
         $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
         $this->form_validation->set_rules('pass', 'Password', 'required');
 
@@ -74,19 +74,15 @@ class User extends CI_Controller
                 $this->session->set_flashdata('dbError', $this->input->post('email'));
                 redirect(base_url() . 'User/login');
             } else {
-                redirect(base_url() . 'User/profile/' . $this->session->userid);
+                redirect(base_url() . 'User/profile');
             }
         }
     }
 
     public function logout()
     {
-        $this->load->library('cart');
-        $unsetArr = array('sessionid', 'userid', 'userName', 'email', 'password', 'contact');
-        $this->session->unset_userdata($unsetArr);
-        $this->cart->destroy();
+        $this->session->unset_userdata('email');
 
-        $this->load->helper('cookie');
         $cookie = array(
             'name'   => 'remember_me',
             'value'  => '',
@@ -96,23 +92,39 @@ class User extends CI_Controller
         redirect(base_url());
     }
 
-    public function profile($userId)
+    public function changePassword($id){
+        $this->load->model('Product_model');
+        $this->load->model('Category_model');
+        $this->load->model('Customer_model');
+
+        $data['cat_display'] = "hide";
+        $data['product_name_list'] = $this->Product_model->GetProductNames();
+        $data['category_list'] = $this->Category_model->GetCategories();
+        $data['id']=$id;
+
+        $this->load->view('user/changepassword', $data);
+    }
+
+    public function profile()
     {
         $this->load->model('Product_model');
         $this->load->model('Category_model');
         $this->load->model('Customer_model');
 
-        $data['customer'] = $this->Customer_model->getCustomerById($userId);
+        $userEmail=$this->session->email;
+        $userId=$this->Customer_model->getId($userEmail);
+
         $data['cat_display'] = "hide";
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
+
         $data['billingdetail'] = $this->Customer_model->getBillingDetail($userId);
-        $data['id']=$userId;
+        $data['customer'] = $this->Customer_model->getCustomerById($userId);
 
         $this->load->view('user/profile', $data);
     }
 
-    public function editPersonalInfo($id)
+    public function editPersonalInfo()
     {
         $this->load->model('Product_model');
         $this->load->model('Category_model');
@@ -124,7 +136,10 @@ class User extends CI_Controller
         $data['cat_display'] = "hide";
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
-        $data['id'] =$id;
+
+        $userEmail=$this->session->email;
+        $id=$this->Customer_model->getId($userEmail);
+
         $customer = $this->Customer_model->getCustomerById($id);
 
         $data['customer'] = $customer[0];
@@ -140,13 +155,11 @@ class User extends CI_Controller
             $formdata['EmailAddress'] = $this->input->post('email');
             $formdata['contact'] = $this->input->post('contact');
             $this->Customer_model->update($id, $formdata);
-            redirect(base_url() . 'User/profile/' . $id);
+            redirect(base_url() . 'User/profile');
         } else {
             $this->load->view('user/editprofile', $data);
         }
     }
-
-
 
     public function editNewsletter($id)
     { }
@@ -191,7 +204,7 @@ class User extends CI_Controller
         }
     }
 
-    public function addBillingAddress($id)
+    public function addBillingAddress()
     {
         $this->load->model('Product_model');
         $this->load->model('Category_model');
@@ -209,11 +222,14 @@ class User extends CI_Controller
         $this->form_validation->set_rules('region', 'Region', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
+        $userEmail=$this->session->email;
+
+
         $data['cat_display'] = "hide";
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
         $data['countries'] = $this->Customer_model->getCountries();
-        $data['id'] = $id;
+
         if ($this->form_validation->run() == TRUE) {
             $form_data['firstname'] = $this->input->post('firstname');
             $form_data['lastname'] = $this->input->post('lastname');
@@ -226,9 +242,12 @@ class User extends CI_Controller
             $form_data['postcode'] = $this->input->post('postcode');
             $form_data['region'] = $this->input->post('region');
             $form_data['email'] = $this->input->post('email');
-            $form_data['userid'] = $id;
+            $form_data['userid'] = $this->customer_model->getId($userEmail);
+            if($this->input->post('shippingAddress' == 'on')){
+                $form_data['shippingaddress']=1;
+            }
             $this->Customer_model->saveBillingDetail($form_data);
-            redirect(base_url()."User/profile/".$id);
+            redirect(base_url()."User/profile");
         } else {
             $this->load->view('user/addAddress', $data);
         }

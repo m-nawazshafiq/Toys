@@ -7,11 +7,11 @@ if (!isset($_SESSION['email'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<?php require(dirname(__DIR__)."/myHead.php"); ?>
+<?php require(dirname(__DIR__) . "/myHead.php"); ?>
 
 <body>
 
-    <?php require(dirname(__DIR__)."/myHeader.php"); ?>
+    <?php require(dirname(__DIR__) . "/myHeader.php"); ?>
 
     <div class="login-bg">
         <div class="login-color-bg">
@@ -27,11 +27,11 @@ if (!isset($_SESSION['email'])) {
 
                 <div class="user-aside-con">
                     <ul class="user-aside">
-                        <li><a href="<?php echo base_url()."User/profile/".$id;?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
-                        <li><a href="<?php echo base_url()."User/order/".$id;?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
-                        <li><a href="<?php echo base_url()."User/wishlist/".$id;?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
-                        <li><a href="<?php echo base_url()."User/newsletter/".$id;?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
-                        <li><a href="<?php echo base_url()."User/changepassword/".$id;?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
+                        <li><a href="<?php echo base_url() . "User/profile"; ?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
+                        <li><a href="<?php echo base_url() . "User/order"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
+                        <li><a href="<?php echo base_url() . "User/wishlist"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
+                        <li><a href="<?php echo base_url() . "User/newsletter"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
+                        <li><a href="<?php echo base_url() . "User/changepassword"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
                         <li><a href="<?php echo base_url() . "User/logout"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Logout</a></li>
                     </ul>
                 </div>
@@ -41,54 +41,78 @@ if (!isset($_SESSION['email'])) {
             <div class="col-lg-9">
 
                 <div class="cust-pages-container details-page mt-5">
-                    <?php echo form_open('User/addBillingAddress/'.$id);?>
+                    <?php echo form_open('User/addBillingAddress'); ?>
                     <h2>Add Default Billing Address</h2>
                     <div class="login-sec mt-2 p-0 border-0 select2-cust">
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">First Name</label>
-                                <input type="text" placeholder="Enter Your First Name" class="form-control" name="firstname" />
+                                <?php if (form_error('firstname')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('firstname'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('firstname'); ?>" placeholder="Enter Your First Name" class="form-control" name="firstname" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Last Name</label>
-                                <input type="text" placeholder="Enter Your Last Name" class="form-control" name="lastname" />
+                                <?php if (form_error('lastname')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('lastname'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('lastname');?>"placeholder="Enter Your Last Name" class="form-control" name="lastname" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Company Name</label>
-                                <input type="text" placeholder="Enter Company Name" class="form-control" name="company" />
+                                <?php if (form_error('company')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('company'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('company');?>" placeholder="Enter Company Name" class="form-control" name="company" />
                             </div>
 
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Phone</label>
-                                <input type="text" placeholder="Enter your phone number" class="form-control" name="contact" />
+                                <?php if (form_error('contact')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('contact'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('contact');?>"  placeholder="Enter your phone number" class="form-control" name="contact" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Address 1</label>
-                                <input type="text" placeholder="Enter your address 1" class="form-control" name="address1" />
+                                <?php if (form_error('address1')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('address1'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('address1');?>" placeholder="Enter your address 1" class="form-control" name="address1" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Address 2</label>
-                                <input type="text" placeholder="Enter your address 2" class="form-control" name="address2" />
+                                <?php if (form_error('address2')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('address2'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('address2');?>" placeholder="Enter your address 2" class="form-control" name="address2" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">City Name</label>
-                                <input type="text" placeholder="Enter your city" class="form-control" name="city" />
+                                <?php if (form_error('city')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('city'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('city');?>" placeholder="Enter your city" class="form-control" name="city" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple" style="display: block;">Country</label>
+                                <?php if (form_error('country')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('country'); ?></label>
+                                <?php } ?>
                                 <select name="country" style="width: 100%;" id="country" class="shipping-country-box">
                                     <option value="">Select Country</option>
                                     <?php for ($x = 0; $x < count($countries); $x++) {
-                                        echo "<option value=" . $countries[$x]["id"] . ">" . $countries[$x]["name"] . "</option>";
+                                        echo "<option ".set_select('country', $countries[$x]["name"] )." value=" . $countries[$x]["id"] .">" . $countries[$x]["name"] . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -112,6 +136,19 @@ if (!isset($_SESSION['email'])) {
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Email</label>
                                 <input type="email" placeholder="Enter your email" class="form-control" name="email" />
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-end">
+                                <div class="">
+                                    <div class="pretty p-default p-thick p-pulse">
+                                        <input type="checkbox" name="shippingAddress" />
+                                        <div class="state p-primary-o">
+                                            <label>
+                                                Use this address for Shipping
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -179,7 +216,7 @@ if (!isset($_SESSION['email'])) {
     <!--Subscribe Section ends-->
 
 
-    <?php require(dirname(__DIR__)."/myFooter.php"); ?>
+    <?php require(dirname(__DIR__) . "/myFooter.php"); ?>
 
     <script>
         $(function() {

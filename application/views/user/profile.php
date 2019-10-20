@@ -27,11 +27,11 @@ if (!isset($_SESSION['email'])) {
 
                 <div class="user-aside-con">
                     <ul class="user-aside">
-                        <li><a href="<?php echo base_url() . "User/profile/" . $id; ?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
-                        <li><a href="<?php echo base_url() . "User/order/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
-                        <li><a href="<?php echo base_url() . "User/wishlist/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
-                        <li><a href="<?php echo base_url() . "User/newsletter/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
-                        <li><a href="<?php echo base_url() . "User/changepassword/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
+                        <li><a href="<?php echo base_url() . "User/profile"; ?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
+                        <li><a href="<?php echo base_url() . "User/order"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
+                        <li><a href="<?php echo base_url() . "User/wishlist"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
+                        <li><a href="<?php echo base_url() . "User/newsletter"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
+                        <li><a href="<?php echo base_url() . "User/changepassword"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
                         <li><a href="<?php echo base_url() . "User/logout"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Logout</a></li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@ if (!isset($_SESSION['email'])) {
                     <div class="row">
                         <div class="col-md-6 cust-cont-info-cont">
                             <div class="mt-2 cust-border cust-cont-info-link">
-                                Contact Information <a href="<?php echo base_url() . "/User/editPersonalInfo/" . $customer[0]['Id']; ?>" class="color-purple">edit</a>
+                                Contact Information <a href="<?php echo base_url() . "User/editPersonalInfo"; ?>" class="color-purple">edit</a>
                             </div>
                             <div class="ml-4 mt-3">
                                 <span>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                         <div class="col-md-6 cust-cont-info-cont">
                             <div class="mt-2 cust-border cust-cont-info-link">
-                                Newsletter <a href="<?php echo base_url() . "/User/editNewsletter/" . $customer[0]['Id']; ?>" class="color-purple">edit</a>
+                                Newsletter <a href="<?php echo base_url() . "User/editNewsletter"; ?>" class="color-purple">edit</a>
                             </div>
                             <div class="ml-4 mt-3">
                                 <span>
@@ -94,10 +94,10 @@ if (!isset($_SESSION['email'])) {
                                 <p>Default Billing Address</p>
                                 <?php if (count($billingdetail) == 0) { ?>
                                     <p>You have not set a default billing address.</p>
-                                    <a href="<?php echo base_url() . "User/addBillingAddress/" . $customer[0]['Id']; ?>" class="color-purple">edit</a>
+                                    <a href="<?php echo base_url() . "User/addBillingAddress";?>" class="color-purple">edit</a>
                                 <?php } else { ?>
                                     <p><?php echo $billingdetail[0]["address1"]; ?></p>
-                                    <a href="<?php echo base_url() . "/User/editBillingAddress/" . $customer[0]['Id']; ?>" class="color-purple">edit</a>
+                                    <a href="<?php echo base_url() . "User/editBillingAddress";?>" class="color-purple">edit</a>
                                 <?php } ?>
                             </div>
                         </div>
