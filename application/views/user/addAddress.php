@@ -122,10 +122,16 @@ if (!isset($_SESSION['email'])) {
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Postcode / ZIP</label>
-                                <input type="text" placeholder="Enter your postcode" class="form-control" name="postcode" />
+                                <?php if (form_error('postcode')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('postcode'); ?></label>
+                                <?php } ?>
+                                <input type="text" value="<?php echo set_value('postcode');?>" placeholder="Enter your postcode" class="form-control" name="postcode" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple" style="display: block;">Region / State</label>
+                                <?php if (form_error('region')) { ?>
+                                    <label class="alert alert-danger error-msg"><?php echo form_error('region'); ?></label>
+                                <?php } ?>
                                 <select name="region" style="width: 100%;" id="state" class="shipping-country-box">
                                     <option value="">Select State</option>
                                 </select>
