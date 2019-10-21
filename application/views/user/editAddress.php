@@ -44,10 +44,10 @@ if (!isset($_SESSION['email'])) {
 
                     <?php echo form_open('User/address'); ?>
 
-                    <?php if ($_SESSION['addressType'] == 'addbilling') { ?>
-                        <h2>Add Default Billing Address</h2>
-                    <?php } else if ($_SESSION['addressType'] == 'addshipping') { ?>
-                        <h2>Add Default Shipping Address</h2>
+                    <?php if ($_SESSION['addressType'] == 'editbilling') { ?>
+                        <h2>Edit Default Billing Address</h2>
+                    <?php } else if ($_SESSION['addressType'] == 'editshipping') { ?>
+                        <h2>Edit Default Shipping Address</h2>
                     <?php } ?>
 
                     <div class="login-sec mt-2 p-0 border-0 select2-cust">

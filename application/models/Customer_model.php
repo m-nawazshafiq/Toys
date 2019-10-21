@@ -116,9 +116,18 @@ class Customer_model extends CI_Model{
         $this->db->insert("billingaddress",$data);
     }
 
+    public function saveShippingDetail($data){
+        $this->db->insert("shippingaddress",$data);
+    }
+
     public function getBillingDetail($id){
         $this->db->where("userid",$id);
         return $this->db->get("billingaddress")->result_array();
+    }
+    
+    public function getShippingDetail($id){
+        $this->db->where("userid",$id);
+        return $this->db->get("shippingaddress")->result_array();
     }
 
     public function getCountries(){

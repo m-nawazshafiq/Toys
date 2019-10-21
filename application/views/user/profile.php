@@ -89,25 +89,42 @@ if (!isset($_SESSION['email'])) {
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mt-2 cust-border profile-dashboard">
-                                <p>Default Billing Address</p>
-                                <?php if (count($billingdetail) == 0) { ?>
-                                    <p>You have not set a default billing address.</p>
-                                    <a href="<?php echo base_url() . "User/addBillingAddress";?>" class="color-purple">edit</a>
-                                <?php } else { ?>
+                        <?php if (count($billingdetail) > 0) { ?>
+                            <div class="col-md-6">
+                                <div class="mt-2 cust-border profile-dashboard">
+                                    <p>Default Billing Address</p>
                                     <p><?php echo $billingdetail[0]["address1"]; ?></p>
-                                    <a href="<?php echo base_url() . "User/editBillingAddress";?>" class="color-purple">edit</a>
-                                <?php } ?>
+                                    <a href="<?php echo base_url() . "User/address/editbilling"; ?>" class="color-purple">edit</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mt-2 cust-border profile-dashboard">
-                                <p>Default Shipping Address</p>
-                                <p>You have not set a default shippin address.</p>
-                                <a href="#" class="color-purple">edit</a>
+                        <?php } else { ?>
+                            <div class="col-md-6">
+                                <div class="mt-2 cust-border profile-dashboard">
+                                    <p>Default Billing Address</p>
+                                    <p>You have not set a default billing address.</p>
+                                    <a href="<?php echo base_url() . "User/address/addbilling"; ?>" class="color-purple">Manage Address</a>
+                                </div>
                             </div>
-                        </div>
+                        <?php } ?>
+
+                        <?php if (count($shippingdetail) > 0) { ?>
+                            <div class="col-md-6">
+                                <div class="mt-2 cust-border profile-dashboard">
+                                    <p>Default Shipping Address</p>
+                                    <p><?php echo $shippingdetail[0]["address1"]; ?></p>
+                                    <a href="<?php echo base_url() . "User/address/editshipping"; ?>" class="color-purple">edit</a>
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <div class="col-md-6">
+                                <div class="mt-2 cust-border profile-dashboard">
+                                    <p>Default Shipping Address</p>
+                                    <p>You have not set a default shipping address.</p>
+                                    <a href="<?php echo base_url() . "User/address/addshipping"; ?>" class="color-purple">Manage Address</a>
+                                </div>
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
 

@@ -92,7 +92,8 @@ class User extends CI_Controller
         redirect(base_url());
     }
 
-    public function changePassword($id){
+    public function changePassword($id)
+    {
         $this->load->model('Product_model');
         $this->load->model('Category_model');
         $this->load->model('Customer_model');
@@ -100,7 +101,7 @@ class User extends CI_Controller
         $data['cat_display'] = "hide";
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
-        $data['id']=$id;
+        $data['id'] = $id;
 
         $this->load->view('user/changepassword', $data);
     }
@@ -111,14 +112,16 @@ class User extends CI_Controller
         $this->load->model('Category_model');
         $this->load->model('Customer_model');
 
-        $userEmail=$this->session->email;
-        $userId=$this->Customer_model->getId($userEmail);
+        $userEmail = $this->session->email;
+        $userId = $this->Customer_model->getId($userEmail);
 
         $data['cat_display'] = "hide";
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
 
         $data['billingdetail'] = $this->Customer_model->getBillingDetail($userId);
+        $data['shippingdetail'] = $this->Customer_model->getShippingDetail($userId);
+
         $data['customer'] = $this->Customer_model->getCustomerById($userId);
 
         $this->load->view('user/profile', $data);
@@ -137,8 +140,8 @@ class User extends CI_Controller
         $data['product_name_list'] = $this->Product_model->GetProductNames();
         $data['category_list'] = $this->Category_model->GetCategories();
 
-        $userEmail=$this->session->email;
-        $id=$this->Customer_model->getId($userEmail);
+        $userEmail = $this->session->email;
+        $id = $this->Customer_model->getId($userEmail);
 
         $customer = $this->Customer_model->getCustomerById($id);
 
@@ -204,7 +207,7 @@ class User extends CI_Controller
         }
     }
 
-    public function addBillingAddress()
+    public function address($type="")
     {
         $this->load->model('Product_model');
         $this->load->model('Category_model');
@@ -222,7 +225,8 @@ class User extends CI_Controller
         $this->form_validation->set_rules('region', 'Region', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
-        $userEmail=$this->session->email;
+        $this->form_validation->set_message('required', 'Field required');
+        $userEmail = $this->session->email;
 
 
         $data['cat_display'] = "hide";
@@ -242,14 +246,30 @@ class User extends CI_Controller
             $form_data['postcode'] = $this->input->post('postcode');
             $form_data['region'] = $this->input->post('region');
             $form_data['email'] = $this->input->post('email');
-            $form_data['userid'] = $this->customer_model->getId($userEmail);
-            if($this->input->post('shippingAddress' == 'on')){
-                $form_data['shippingaddress']=1;
+            $form_data['userid'] = $this->Customer_model->getId($userEmail);
+
+            if ($this->session->addressType == 'addbilling') {
+
+                $this->Customer_model->saveBillingDetail($form_data);
+                $this->session->unset_userdata('addressType');
+
+            } else if ($this->session->addressType == 'addshipping') {
+
+                $this->Customer_model->saveShippingDetail($form_data);
+                $this->session->unset_userdata('addressType');
+
             }
-            $this->Customer_model->saveBillingDetail($form_data);
-            redirect(base_url()."User/profile");
+
+            redirect(base_url() . "User/profile");
         } else {
-            $this->load->view('user/addAddress', $data);
+            if ($type == 'addbilling') {
+                $this->session->set_userdata('addressType', 'addbilling');
+                $this->load->view('user/addAddress', $data);
+
+            } else if ($type == 'addshipping') {
+                $this->session->set_userdata('addressType', 'addshipping');
+                $this->load->view('user/addAddress', $data);
+            }
         }
     }
 

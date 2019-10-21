@@ -1930,12 +1930,13 @@ table.roundedCorners th {
 /*shopping cart and checkout responsive ends*/
 
 .error-msg {
-	font-size: 14px;
+	float: right;
 	padding: 5px 10px;
-	margin: 0px;
+	margin: 12px 0px 0px 0px !important;
 }
 
 .error-msg p {
+	font-size: 12px;
 	margin: 0px;
 }
 
@@ -2026,4 +2027,5 @@ table.roundedCorners th {
 
 .profile-dashboard{
   padding: 20px;
+  min-height: 160px;
 }
