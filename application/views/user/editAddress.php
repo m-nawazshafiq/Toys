@@ -57,14 +57,14 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('firstname')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('firstname'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('firstname'); ?>" placeholder="Enter Your First Name" class="form-control" name="firstname" />
+                                <input type="text" value="<?php echo $addressDetail[0]['firstname']; ?>" placeholder="Enter Your First Name" class="form-control" name="firstname" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Last Name</label>
                                 <?php if (form_error('lastname')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('lastname'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('lastname'); ?>" placeholder="Enter Your Last Name" class="form-control" name="lastname" />
+                                <input type="text" value="<?php echo $addressDetail[0]['lastname']; ?>" placeholder="Enter Your Last Name" class="form-control" name="lastname" />
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('company')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('company'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('company'); ?>" placeholder="Enter Company Name" class="form-control" name="company" />
+                                <input type="text" value="<?php echo $addressDetail[0]['company']; ?>" placeholder="Enter Company Name" class="form-control" name="company" />
                             </div>
 
                             <div class="col-lg-6">
@@ -82,7 +82,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('contact')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('contact'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('contact'); ?>" placeholder="Enter your phone number" class="form-control" name="contact" />
+                                <input type="text" value="<?php echo $addressDetail[0]['phone']; ?>" placeholder="Enter your phone number" class="form-control" name="contact" />
                             </div>
                         </div>
 
@@ -92,14 +92,14 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('address1')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('address1'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('address1'); ?>" placeholder="Enter your address 1" class="form-control" name="address1" />
+                                <input type="text" value="<?php echo $addressDetail[0]['address1']; ?>" placeholder="Enter your address 1" class="form-control" name="address1" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Address 2</label>
                                 <?php if (form_error('address2')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('address2'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('address2'); ?>" placeholder="Enter your address 2" class="form-control" name="address2" />
+                                <input type="text" value="<?php echo $addressDetail[0]['address2']; ?>" placeholder="Enter your address 2" class="form-control" name="address2" />
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('city')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('city'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('city'); ?>" placeholder="Enter your city" class="form-control" name="city" />
+                                <input type="text" value="<?php echo $addressDetail[0]['city']; ?>" placeholder="Enter your city" class="form-control" name="city" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Country</label>
@@ -119,7 +119,11 @@ if (!isset($_SESSION['email'])) {
                                 <select name="country" style="width: 100%;" id="country" class="shipping-country-box">
                                     <option value="">Select Country</option>
                                     <?php for ($x = 0; $x < count($countries); $x++) {
-                                        echo "<option value=" . $countries[$x]["id"] . ">" . $countries[$x]["name"] . "</option>";
+                                        if ($countries[$x]["id"] == $addressDetail[0]['country']) { ?>
+                                            <option value="<?php echo $countries[$x]["id"]; ?>" selected="selected"> <?php echo $countries[$x]["name"]; ?> </option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $countries[$x]["id"]; ?>"> <?php echo $countries[$x]["name"]; ?> </option>
+                                    <?php }
                                     }
                                     ?>
                                 </select>
@@ -132,7 +136,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('postcode')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('postcode'); ?></label>
                                 <?php } ?>
-                                <input type="text" value="<?php echo set_value('postcode'); ?>" placeholder="Enter your postcode" class="form-control" name="postcode" />
+                                <input type="text" value="<?php echo $addressDetail[0]['postcode']; ?>" placeholder="Enter your postcode" class="form-control" name="postcode" />
                             </div>
                             <div class="col-lg-6">
                                 <label class="mt-3 color-purple">Region / State</label>
@@ -141,6 +145,13 @@ if (!isset($_SESSION['email'])) {
                                 <?php } ?>
                                 <select name="region" style="width: 100%;" id="state" class="shipping-country-box">
                                     <option value="">Select State</option>
+                                    <?php foreach ($states as $state) {
+                                        if ($state->id == $addressDetail[0]['region']) { ?>
+                                            <option value="<?php echo $state->id; ?>" selected="selected"><?php echo $state->name; ?></option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
+                                    <?php }
+                                    } ?>
                                 </select>
                             </div>
                         </div>
@@ -151,7 +162,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if (form_error('email')) { ?>
                                     <label class="alert alert-danger error-msg"><?php echo form_error('email'); ?></label>
                                 <?php } ?>
-                                <input type="email" value="<?php echo set_value('email'); ?>" placeholder="Enter your email" class="form-control" name="email" />
+                                <input type="email" value="<?php echo $addressDetail[0]['email']; ?>" placeholder="Enter your email" class="form-control" name="email" />
                             </div>
                         </div>
 

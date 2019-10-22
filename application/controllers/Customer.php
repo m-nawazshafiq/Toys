@@ -14,12 +14,9 @@ class Customer extends CI_Controller {
 		$this->load->model('Newsitem_model');
 		$this->load->model('Settings_model');
 		
-		
 		$this->load->library('session');
 		$this->load->library('Cart');
-		
-	
-        
+		  
 	}
 	public function index()
 	{

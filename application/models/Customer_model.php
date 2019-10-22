@@ -9,15 +9,6 @@ class Customer_model extends CI_Model{
 
         $this->db->insert('customer',$user);
         $id=$this->db->insert_id();
-        
-        /*$data = array(
-            'sessionid' => session_id(),
-            'userid' => $id,
-            'userName' => $user['username'],
-            'email' => $user['EmailAddress'],
-            'password'=>$user['Password'],
-            'contact' =>  $user['contact']
-        );*/
 
         $data = array(
             'email' => $user['EmailAddress']
@@ -30,6 +21,21 @@ class Customer_model extends CI_Model{
 
     public function getUserCount(){
         return $this->db->count_all('customer');
+    }
+
+    public function changePassword($userId,$currentPass, $newPass){
+
+        $success=false;
+        $this->db->set("Password",$newPass);
+        $this->db->where("Id",$userId);
+        $this->db->where("Password",$currentPass);
+        $this->db->update("customer");
+
+        if($this->db->affected_rows() > 0){
+            $success=true;
+        }
+
+        return $success;
     }
 
     public function login(){
@@ -130,6 +136,16 @@ class Customer_model extends CI_Model{
         return $this->db->get("shippingaddress")->result_array();
     }
 
+    public function updateBillingDetail($id,$data){
+        $this->db->where("userid",$id);
+        $this->db->update("billingaddress",$data);
+    }
+
+    public function updateShippingDetail($id,$data){
+        $this->db->where("userid",$id);
+        $this->db->update("shippingaddress",$data);
+    }
+
     public function getCountries(){
         $this->db->select('*');
         $this->db->from('countries');
@@ -144,7 +160,16 @@ class Customer_model extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getRelatedStates($id){
+        $this->db->where("country_id",$id);
+        return $this->db->get("states")->result();
+    }
 
+    public function newsletterSubscription($id,$val){
+        $this->db->set("newsletter",$val);
+        $this->db->where("Id",$id);
+        $this->db->update("customer");
+    }
     public function getCustomerId(){
         $email = $this->security->xss_clean($this->input->post('email'));
         $password = $this->security->xss_clean($this->input->post('password'));

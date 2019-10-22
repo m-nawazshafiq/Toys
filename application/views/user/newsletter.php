@@ -27,11 +27,11 @@ if (!isset($_SESSION['email'])) {
 
                 <div class="user-aside-con">
                     <ul class="user-aside">
-                        <li><a href="<?php echo base_url() . "User/profile/" . $id; ?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
-                        <li><a href="<?php echo base_url() . "User/order/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
-                        <li><a href="<?php echo base_url() . "User/wishlist/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
-                        <li><a href="<?php echo base_url() . "User/newsletter/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
-                        <li><a href="<?php echo base_url() . "User/changepassword/" . $id; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
+                        <li><a href="<?php echo base_url() . "User/profile"; ?>" class="color-purple"><i class="fa fa-caret-right color-purple" aria-hidden="true"></i> Account Information</a></li>
+                        <li><a href="<?php echo base_url() . "User/order"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Orders</a></li>
+                        <li><a href="<?php echo base_url() . "User/wishlist"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Wishlist</a></li>
+                        <li><a href="<?php echo base_url() . "User/newsletter"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> My Newsletter</a></li>
+                        <li><a href="<?php echo base_url() . "User/changepassword"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Change Password</a></li>
                         <li><a href="<?php echo base_url() . "User/logout"; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Logout</a></li>
                     </ul>
                 </div>
@@ -43,7 +43,7 @@ if (!isset($_SESSION['email'])) {
                     <h2 class="mb-3">Newsletter Subscription</h2>
                     <span class="mr-3">Subscribe</span>
                     <div class="pretty p-default p-round p-thick p-pulse">
-                        <input type="radio" name="newsletterSubs" id="card-pay" />
+                        <input type="radio" value="1" name="newsletterSubs" id="card-pay" />
                         <div class="state p-primary-o">
                             <label>
                                 Yes
@@ -51,7 +51,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="pretty p-default p-round p-thick p-pulse">
-                        <input type="radio" name="newsletterSubs" id="card-pay" />
+                        <input type="radio" value="0" name="newsletterSubs" id="card-pay" />
                         <div class="state p-primary-o">
                             <label>
                                 No

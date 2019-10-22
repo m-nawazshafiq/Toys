@@ -1930,6 +1930,7 @@ table.roundedCorners th {
 /*shopping cart and checkout responsive ends*/
 
 .error-msg {
+	border-radius: 33px;
 	float: right;
 	padding: 5px 10px;
 	margin: 12px 0px 0px 0px !important;
