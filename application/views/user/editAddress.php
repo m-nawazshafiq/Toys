@@ -42,11 +42,11 @@ if (!isset($_SESSION['email'])) {
 
                 <div class="cust-pages-container details-page mt-5">
 
-                    <?php echo form_open('User/address'); ?>
-
                     <?php if ($_SESSION['addressType'] == 'editbilling') { ?>
+                        <?php echo form_open('User/address/editbilling'); ?>
                         <h2>Edit Default Billing Address</h2>
                     <?php } else if ($_SESSION['addressType'] == 'editshipping') { ?>
+                        <?php echo form_open('User/address/editshipping'); ?>
                         <h2>Edit Default Shipping Address</h2>
                     <?php } ?>
 
